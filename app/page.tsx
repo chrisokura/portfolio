@@ -2,51 +2,81 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 /* ─── DATA ─────────────────────────────────────────────────────────────── */
 
-const projects = [
+const projectSections = [
   {
-    num: "01",
-    tag: "Hero Project",
-    title: "AI Agent Evaluation Framework",
-    company: "Meta · 2023–Present",
-    description:
-      "Production Python framework for evaluating AI agent performance across multi-step tasks. Combined LLM-as-a-Judge automated scoring with structured human-in-the-loop (HITL) review — rubric design, gold-standard dataset curation, and continuous scoring pipelines. Improved benchmark pass rates by 40% and became the team's source of truth for model quality decisions.",
-    metric: "40% improvement in benchmark pass rates",
-    tags: ["Python", "LLM-as-a-Judge", "HITL", "Benchmark Design", "PyTorch"],
-    highlight: true,
+    section: "Data Science",
+    projects: [
+      {
+        num: "01",
+        tag: "Hero Project",
+        title: "AI Agent Evaluation Framework",
+        company: "Meta · 2023–Present",
+        description:
+          "Production Python framework for evaluating AI agent performance across multi-step tasks. Combined LLM-as-a-Judge automated scoring with structured human-in-the-loop (HITL) review — rubric design, gold-standard dataset curation, and continuous scoring pipelines. Improved benchmark pass rates by 40% and became the team's source of truth for model quality decisions.",
+        metric: "40% improvement in benchmark pass rates",
+        tags: ["Python", "LLM-as-a-Judge", "HITL", "Benchmark Design", "PyTorch"],
+        highlight: true,
+        isNew: false,
+      },
+      {
+        num: "02",
+        tag: null,
+        title: "A/B Experimentation Infrastructure",
+        company: "Meta · 2023–Present",
+        description:
+          "Designed and led 20+ A/B experiments on Meta's internal data infrastructure. Built experimentation frameworks that measured both user-perceived and system-level performance with rigorous statistical controls. Delivered recommendations that reduced p90 latency by up to 56% and user-perceived latency by 32% across the platform.",
+        metric: "p90 latency reduced up to 56%",
+        tags: ["Python", "Causal Inference", "Statistical Testing", "SQL", "Tableau"],
+        highlight: false,
+        isNew: false,
+      },
+    ],
   },
   {
-    num: "02",
-    tag: null,
-    title: "NFL 4th-Down Decision Evaluator",
-    company: "Personal · nflfastR dataset",
-    description:
-      "LLM-as-a-Judge evaluation pipeline applied to NFL 4th-down decisions. Pulls play-by-play data from the public nflfastR dataset, generates structured game-context prompts, and uses chain-of-thought LLM scoring to rate go/punt/kick decisions against Expected Points Added (EPA) benchmarks. Built automated rubrics and calibration against historical win probability models.",
-    metric: "78% agreement with EPA-optimal decisions",
-    tags: ["Python", "LLM-as-a-Judge", "nflfastR", "EPA Modeling", "Pandas"],
-    highlight: false,
-    isNew: true,
+    section: "Finance",
+    projects: [
+      {
+        num: "03",
+        tag: null,
+        title: "MTIA Custom Silicon Investment Modeling",
+        company: "Meta · 2022–2023",
+        description:
+          "Led financial modeling to support Meta's multi-billion dollar decision to invest in MTIA — its custom AI training and inference accelerator chip. Built build-vs-buy frameworks comparing MTIA against commercial GPU alternatives (total cost of ownership, performance-per-watt, amortization across workloads). Modeled capex and opex scenarios across chip generations as Meta scaled from pilot to hundreds of thousands of chips deployed globally. Analysis directly informed infrastructure investment strategy and capital allocation decisions for one of the largest custom silicon programs in the industry.",
+        metric: "Informed investment decision at $10B+ capex scale",
+        tags: ["Financial Modeling", "Build vs. Buy", "TCO Analysis", "Capex Planning", "Excel", "Python"],
+        highlight: false,
+        isNew: false,
+      },
+      {
+        num: "04",
+        tag: null,
+        title: "Infrastructure Forecasting & Optimization",
+        company: "Meta · 2022–2024",
+        description:
+          "ML forecasting models for compute, storage, and network demand at Meta scale. Built predictive models for $10B+ annual infrastructure capex and $390M cloud spend allocation. Enabled data-driven infrastructure strategy decisions that reduced redundant spend and optimized resource allocation across global data centers.",
+        metric: "~$140M annual Opex savings",
+        tags: ["Python", "Time Series", "scikit-learn", "Financial Modeling", "SQL"],
+        highlight: false,
+        isNew: false,
+      },
+    ],
   },
   {
-    num: "03",
-    tag: null,
-    title: "A/B Experimentation Infrastructure",
-    company: "Meta · 2023–Present",
-    description:
-      "Designed and led 20+ A/B experiments on Meta's internal data infrastructure. Built experimentation frameworks that measured both user-perceived and system-level performance with rigorous statistical controls. Delivered recommendations that reduced p90 latency by up to 56% and user-perceived latency by 32% across the platform.",
-    metric: "p90 latency reduced up to 56%",
-    tags: ["Python", "Causal Inference", "Statistical Testing", "SQL", "Tableau"],
-    highlight: false,
-  },
-  {
-    num: "04",
-    tag: null,
-    title: "Infrastructure Forecasting & Optimization",
-    company: "Meta · 2022–2024",
-    description:
-      "ML forecasting models for compute, storage, and network demand at Meta scale. Separately, built predictive models for $10B+ annual infrastructure capex and $390M cloud spend allocation. Enabled data-driven infrastructure strategy decisions and financial modeling for custom AI chip (MTIA) investments.",
-    metric: "~$140M annual Opex savings",
-    tags: ["Python", "Time Series", "scikit-learn", "Financial Modeling", "SQL"],
-    highlight: false,
+    section: "Personal",
+    projects: [
+      {
+        num: "05",
+        tag: null,
+        title: "NFL 4th-Down Decision Evaluator",
+        company: "Personal · nflfastR dataset",
+        description:
+          "LLM-as-a-Judge evaluation pipeline applied to NFL 4th-down decisions. Pulls play-by-play data from the public nflfastR dataset, generates structured game-context prompts, and uses chain-of-thought LLM scoring to rate go/punt/kick decisions against Expected Points Added (EPA) benchmarks. Built automated rubrics and calibration against historical win probability models.",
+        metric: "78% agreement with EPA-optimal decisions",
+        tags: ["Python", "LLM-as-a-Judge", "nflfastR", "EPA Modeling", "Pandas"],
+        highlight: false,
+        isNew: true,
+      },
+    ],
   },
 ];
 
@@ -170,61 +200,75 @@ export default function Home() {
         {/* PROJECTS */}
         <section id="projects">
           <SectionLabel>Featured Projects</SectionLabel>
-          <div className="space-y-5">
-            {projects.map((p) => (
-              <div
-                key={p.title}
-                className={`rounded-2xl border p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg
-                  ${p.highlight
-                    ? "border-cyan-200 dark:border-cyan-900 bg-gradient-to-br from-slate-50 to-cyan-50/30 dark:from-slate-900 dark:to-cyan-950/20 hover:shadow-cyan-100/50 dark:hover:shadow-cyan-900/30"
-                    : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:shadow-slate-100 dark:hover:shadow-slate-900"
-                  }`}
-              >
-                <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono font-medium text-slate-400 dark:text-slate-500">
-                      {p.num}
-                    </span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400">{p.company}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {p.isNew && (
-                      <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800">
-                        Public Dataset
-                      </span>
-                    )}
-                    {p.highlight && (
-                      <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-cyan-100 dark:bg-cyan-900/40 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
-                        Hero Project
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <h3 className="text-lg font-semibold mb-2 text-slate-900 dark:text-white">
-                  {p.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400 mb-4">
-                  {p.description}
-                </p>
-
-                {/* Metric */}
-                <div className="inline-flex items-center gap-2 px-3 py-2 rounded-lg mb-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900">
-                  <TrendingIcon />
-                  <span className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
-                    {p.metric}
+          <div className="space-y-12">
+            {projectSections.map((section) => (
+              <div key={section.section}>
+                {/* Sub-section header */}
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    {section.section}
                   </span>
+                  <div className="h-px flex-1 bg-slate-100 dark:bg-slate-800" />
                 </div>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {p.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2.5 py-1 rounded-md font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                <div className="space-y-5">
+                  {section.projects.map((p) => (
+                    <div
+                      key={p.title}
+                      className={`rounded-2xl border p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg
+                        ${p.highlight
+                          ? "border-cyan-200 dark:border-cyan-900 bg-gradient-to-br from-slate-50 to-cyan-50/30 dark:from-slate-900 dark:to-cyan-950/20 hover:shadow-cyan-100/50 dark:hover:shadow-cyan-900/30"
+                          : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:shadow-slate-100 dark:hover:shadow-slate-900"
+                        }`}
                     >
-                      {tag}
-                    </span>
+                      <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs font-mono font-medium text-slate-400 dark:text-slate-500">
+                            {p.num}
+                          </span>
+                          <span className="text-xs text-slate-500 dark:text-slate-400">{p.company}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {p.isNew && (
+                            <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800">
+                              Public Dataset
+                            </span>
+                          )}
+                          {p.highlight && (
+                            <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-cyan-100 dark:bg-cyan-900/40 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+                              Hero Project
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <h3 className="text-lg font-semibold mb-2 text-slate-900 dark:text-white">
+                        {p.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400 mb-4">
+                        {p.description}
+                      </p>
+
+                      {/* Metric */}
+                      <div className="inline-flex items-center gap-2 px-3 py-2 rounded-lg mb-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900">
+                        <TrendingIcon />
+                        <span className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+                          {p.metric}
+                        </span>
+                      </div>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2">
+                        {p.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-xs px-2.5 py-1 rounded-md font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
